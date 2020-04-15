@@ -5,66 +5,76 @@
 
 /*
  * Smart Pointer que implementa un tipo de estrategia por conteo de referencias.
- * Permite que varios SmartPtrs puedan acceder al mismo recurso compartido.
+ * Permite que varios SmartPointers puedan acceder al mismo recurso compartido.
  * Cuando el ˙ltimo puntero es eliminado, se elimina y libera el recurso.
  */
 template <typename Type>
 class SmartPointer {
+ private:
+  Type *resource_;
+
  public:
-  /* Constructor: SmartPointer(Type* resource = NULL)
-   * Uso: SmartPointer<string> my_ptr(new string);
-   *      SmartPointer<string> my_ptr;
+  /* Constructor: SmartPointer(Type* resource=NULL)
+   * Uso: SmartPointer<string> myPtr(new string);
+   *      SmartPointer<string> myPtr;
    * ------------------------------------------------------------
    * Construye un nuevo objeto SmartPointer que administra el recurso
    * asignado. Se asume que el recurso viene de una llamada a new.
-   * El recurso tambiÈn podrÌa ser NULL lo que ocasionarÌa que el
-   * recurso no administre ning˙n recurso.
+   * El recurso también podría ser NULL lo que ocasionaría que el
+   * recurso no administre ningún recurso.
    */
-  explicit SmartPointer(Type* resource = nullptr);
+  explicit SmartPointer(Type *resource) :resource_(resource) {
+  }
 
   /* Destructor: ~SmartPointer();
-   * Uso: (implÌcito)
+   * Uso: (implícito)
    * ------------------------------------------------------------
    * Decrementa el contador de referencias del recurso, eliminando
-   * y liberando la memoria si fuera el ˙ltimo SmartPointer apuntando
+   * y liberando la memoria si fuera el último SmartPointer apuntando
    * al recurso.
    */
-  ~SmartPointer();
+  ~SmartPointer() {
+  }
 
-  /* SmartPointer operadores de "de-referencia"(dereference)
-   * Uso: cout << *my_ptr << endl;
-   * Uso: cout << my_ptr->length << endl;
+  /* SmartPointer operadores de "des-referencia"(dereference)
+   * Uso: cout << *myPtr << endl;
+   * Uso: cout << myPtr->length << endl;
    * ------------------------------------------------------------
    * Permite al SmartPointer comportarse como si fuera un puntero.
    */
-  Type& operator*() const;
-  Type* operator->() const;
+  Type &operator*() const { return Type(0); }
+  Type *operator->() const { return nullptr; }
 
   /* Funciones de copia
-   * Uso: SmartPointer<string> ptr = existing_pointer;
-   *      ptr = existing_ptr;
+   * Uso: SmartPointer<string> ptr=existingPointer;
+   *      ptr=existingPtr;
    * ------------------------------------------------------------
    * Cambia el recurso referenciado por este SmartPointer por otro
    * SmartPointer. Si el conteo llega a cero, debe ser eliminado
    * (deallocated).
    */
-  SmartPointer& operator=(const SmartPointer& other);
-  SmartPointer& operator=(Type* other);
-  SmartPointer(const SmartPointer& other);
+  SmartPointer &operator=(const SmartPointer &other) {
+    return *this;
+  }
+  SmartPointer &operator=(Type *other) {
+    return *this;
+  }
+  SmartPointer(const SmartPointer &other) {
+  }
 
   /* Helper Function: Obtener recurso.
-   * Uso: Type* p = GetPointer();
+   * Uso: Type* p=GetPointer();
    * ------------------------------------------------------------
    * Retorna una variable puntero al recurso administrado.
    */
-  Type* GetPointer() const;
+  Type *GetPointer() const { return nullptr; }
 
   /* Helper Function: Obtiene conteo
-   * Uso: if (ptr.GetReferenceCount() == 1) // ⁄nica referencia
+   * Uso: if (ptr.GetReferenceCount()==1) // Única referencia
    * ------------------------------------------------------------
-   * Retorna el n˙mero de referencias apuntando al recurso.
+   * Retorna el número de referencias apuntando al recurso.
    */
-  size_t GetReferenceCount() const;
+  size_t GetReferenceCount() const { return 0; }
 
   /* Helper Function: se des-asocia del recurso;
    * Uso: ptr.Detach();
@@ -72,6 +82,8 @@ class SmartPointer {
    * Deja de administrar un recurso. eliminando y liberando la
    * memoria si es necesario.
    */
-  void Detach();
+  void Detach() {
+  }
 };
+
 #endif  // SOURCE_SMART_POINTER_SMART_POINTER_HPP_
