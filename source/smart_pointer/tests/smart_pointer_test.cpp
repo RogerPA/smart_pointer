@@ -177,6 +177,7 @@ TEST_F(SmartPointerTest, ChainedAssignment) {
         << "Deberían existir exactamente 3 instancias activas de la clase "
            "Counter.";
 
+
     three = two = basic_pointer;  // Chained Assign.
 
     EXPECT_EQ(basic_pointer.GetReferenceCount(), 3)
