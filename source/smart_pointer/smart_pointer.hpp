@@ -23,8 +23,7 @@ class SmartPointer {
    * El recurso también podría ser NULL lo que ocasionaría que el
    * recurso no administre ningún recurso.
    */
-  explicit SmartPointer(Type *resource) :resource_(resource) {
-  }
+  explicit SmartPointer(Type *resource) : resource_(resource) {}
 
   /* Destructor: ~SmartPointer();
    * Uso: (implícito)
@@ -33,8 +32,7 @@ class SmartPointer {
    * y liberando la memoria si fuera el último SmartPointer apuntando
    * al recurso.
    */
-  ~SmartPointer() {
-  }
+  ~SmartPointer() {}
 
   /* SmartPointer operadores de "des-referencia"(dereference)
    * Uso: cout << *myPtr << endl;
@@ -53,14 +51,9 @@ class SmartPointer {
    * SmartPointer. Si el conteo llega a cero, debe ser eliminado
    * (deallocated).
    */
-  SmartPointer &operator=(const SmartPointer &other) {
-    return *this;
-  }
-  SmartPointer &operator=(Type *other) {
-    return *this;
-  }
-  SmartPointer(const SmartPointer &other) {
-  }
+  SmartPointer &operator=(const SmartPointer &other) { return *this; }
+  SmartPointer &operator=(Type *other) { return *this; }
+  SmartPointer(const SmartPointer &other) {}
 
   /* Helper Function: Obtener recurso.
    * Uso: Type* p=GetPointer();
@@ -82,8 +75,7 @@ class SmartPointer {
    * Deja de administrar un recurso. eliminando y liberando la
    * memoria si es necesario.
    */
-  void Detach() {
-  }
+  void Detach() {}
 };
 
 #endif  // SOURCE_SMART_POINTER_SMART_POINTER_HPP_
