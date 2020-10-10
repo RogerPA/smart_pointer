@@ -55,7 +55,7 @@ TEST_F(SmartPointerTest, ConstructorFuncionality) {
     basic_pointer.GetPointer()->SetValue(125);
 
     EXPECT_EQ(basic_pointer.GetPointer()->GetValue(), 125)
-        << "El valor almacenado debería ser 137";
+        << "El valor almacenado debería ser 125";
   }
   EXPECT_EQ(SmartPointerTest::Counter::GetNumInstances(), 0)
       << "No debería haber ninguna instancia en Counter.";

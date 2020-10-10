@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\U\Semestre 6°\Estructura de Datos Avanzada\Practico\Repositorios\smart_pointer\source\smart_pointer\tests\smart_pointer_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\U\Semestre 6°\Estructura de Datos Avanzada\Practico\Repositorios\smart_pointer\source\smart_pointer\tests\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D8D6FFC6-7911-3BB3-8CDD-AA47018540CB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

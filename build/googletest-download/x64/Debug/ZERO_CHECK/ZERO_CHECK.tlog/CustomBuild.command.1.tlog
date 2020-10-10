@@ -1,0 +1,10 @@
+^E:\U\SEMESTRE 6°\ESTRUCTURA DE DATOS AVANZADA\PRACTICO\REPOSITORIOS\SMART_POINTER\BUILD\GOOGLETEST-DOWNLOAD\CMAKEFILES\9374BE0B2D45D4ECA918D8E0F839EBD0\GENERATE.STAMP.RULE
+setlocal
+E:\CMake\bin\cmake.exe "-SE:/U/Semestre 6°/Estructura de Datos Avanzada/Practico/Repositorios/smart_pointer/build/googletest-download" "-BE:/U/Semestre 6°/Estructura de Datos Avanzada/Practico/Repositorios/smart_pointer/build/googletest-download" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "E:/U/Semestre 6°/Estructura de Datos Avanzada/Practico/Repositorios/smart_pointer/build/googletest-download/googletest-download.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
