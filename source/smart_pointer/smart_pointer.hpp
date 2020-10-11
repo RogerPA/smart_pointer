@@ -1,4 +1,5 @@
 // Copyright 2020 Roger Peralta Aranibar
+// joaquin Maurtua
 #ifndef SOURCE_SMART_POINTER_SMART_POINTER_HPP_
 #define SOURCE_SMART_POINTER_SMART_POINTER_HPP_
 #include <cstddef>
