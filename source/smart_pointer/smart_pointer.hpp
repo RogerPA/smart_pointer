@@ -26,7 +26,7 @@ class reference_count {
   size_t ref_decrement() { return --contador; }
   size_t get_ref_count() { return contador; }
 };
-
+//
 /*
  * Smart Pointer que implementa un tipo de estrategia por conteo de referencias.
  * Permite que varios SmartPointers puedan acceder al mismo recurso compartido.
