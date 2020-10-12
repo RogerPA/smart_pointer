@@ -1,5 +1,5 @@
 // Copyright 2020 Roger Peralta Aranibar
-#include "smart_pointer/smart_pointer.hpp"
+#include "smart_pointer/smart_pointer_complete.hpp"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
