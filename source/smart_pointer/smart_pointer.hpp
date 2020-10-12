@@ -2,6 +2,30 @@
 #ifndef SOURCE_SMART_POINTER_SMART_POINTER_HPP_
 #define SOURCE_SMART_POINTER_SMART_POINTER_HPP_
 #include <cstddef>
+#include <memory>
+#include <iostream>
+
+using namespace std;
+
+
+class ReferenceCount
+{
+private:
+  int m_RefCount{ 0 };
+public:
+  void Increment()
+  {
+    ++m_RefCount;
+  }
+  int Decrement()
+  {
+    return --m_RefCount;
+  }
+  int GetCount() const
+  {
+    return m_RefCount;
+  }
+};
 
 /*
  * Smart Pointer que implementa un tipo de estrategia por conteo de referencias.
@@ -11,28 +35,48 @@
 template <typename Type>
 class SmartPointer {
  private:
-  Type *resource_;
+    Type *resource;
+    ReferenceCount* controlBlock{nullptr};
 
  public:
+  
   /* Constructor: SmartPointer(Type* resource=NULL)
    * Uso: SmartPointer<string> myPtr(new string);
-   *      SmartPointer<string> myPtr;
-   * ------------------------------------------------------------
-   * Construye un nuevo objeto SmartPointer que administra el recurso
+   *      SmartPointer<string> myPtr;*/
+  explicit SmartPointer(Type* ptr = nullptr) {resource = ptr;}
+ 
+  /* Construye un nuevo objeto SmartPointer que administra el recurso
    * asignado. Se asume que el recurso viene de una llamada a new.
    * El recurso también podría ser NULL lo que ocasionaría que el
-   * recurso no administre ningún recurso.
-   */
-  explicit SmartPointer(Type *resource) : resource_(resource) {}
+   * recurso no administre ningún recurso.*/
 
+  explicit SmartPointer(Type *ptr)
+    :resource(ptr), controlBlock(new ReferenceCount()) {
+      controlBlock->Increment();
+    }
+   
   /* Destructor: ~SmartPointer();
-   * Uso: (implícito)
-   * ------------------------------------------------------------
-   * Decrementa el contador de referencias del recurso, eliminando
+   * Uso: (implícito)*/
+  
+   /*Decrementa el contador de referencias del recurso, eliminando
    * y liberando la memoria si fuera el último SmartPointer apuntando
-   * al recurso.
-   */
-  ~SmartPointer() {}
+   * al recurso.*/
+  
+  virtual ~SmartPointer() {
+      if(controlBlock)
+      {
+        int decrementCount = controlBlock->Decrement();
+        cout<<"Smart_ptr destruido!"<<endl;
+        if(decrementCount <= 0)
+        {
+          delete controlBlock;
+          delete resource;
+
+          controlBlock = nullptr;
+          resource = nullptr;
+        }
+      }
+  }
 
   /* SmartPointer operadores de "des-referencia"(dereference)
    * Uso: cout << *myPtr << endl;
@@ -51,9 +95,32 @@ class SmartPointer {
    * SmartPointer. Si el conteo llega a cero, debe ser eliminado
    * (deallocated).
    */
-  SmartPointer &operator=(const SmartPointer &other) { return *this; }
+  SmartPointer &operator=(const SmartPointer<Type> &other) 
+  {
+    if(this != &other)
+    {
+      if(controlBlock and controlBlock->Decrement() == 0)
+      {
+        delete controlBlock;
+        delete resource;
+      }
+      resource = other.resource;
+      controlBlock = other.controlBlock;
+      controlBlock->Increment();
+    }
+  }
+
   SmartPointer &operator=(Type *other) { return *this; }
-  SmartPointer(const SmartPointer &other) {}
+
+  SmartPointer(const SmartPointer<Type> &other) 
+    :resource{ other.resource },
+     controlBlock{ other.controlBlock}
+  {
+    controlBlock->Increment();
+    cout<<"Smart_ptr copiado!"<<controlBlock->GetCount()<<endl;
+
+  }
+
 
   /* Helper Function: Obtener recurso.
    * Uso: Type* p=GetPointer();
@@ -75,7 +142,15 @@ class SmartPointer {
    * Deja de administrar un recurso. eliminando y liberando la
    * memoria si es necesario.
    */
-  void Detach() {}
+  void Detach() {
+    if(resource and --(*controlBlock) == 0)
+    {
+      delete resource;
+      delete controlBlock;
+    }
+    resource = nullptr;
+    controlBlock = nullptr;
+  }
 };
 
 #endif  // SOURCE_SMART_POINTER_SMART_POINTER_HPP_
