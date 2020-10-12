@@ -11,7 +11,7 @@
 #ifndef SOURCE_SMART_POINTER_SMART_POINTER_HPP_
 #define SOURCE_SMART_POINTER_SMART_POINTER_HPP_
 #include <cstddef>
-
+//
 /*
  * El smart pointer necesita de un contador de referencias
  * para esto se tiene una clase que maneje al contador de referencias
