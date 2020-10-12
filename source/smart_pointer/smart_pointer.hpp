@@ -186,7 +186,19 @@ class SmartPointer {
    * Deja de administrar un recurso. eliminando y liberando la
    * memoria si es necesario.
    */
-  void Detach() {}
+  void Detach() {
+
+       referencia->SubtRef();
+       if (referencia->getContador()==0)
+       {
+         delete resource_;
+         delete referencia;
+       }
+
+      resource_=nullptr;
+      referencia=new ContadorReferencias();
+      referencia->AddRef();
+  }
 };
 
 #endif  // SOURCE_SMART_POINTER_SMART_POINTER_HPP_
