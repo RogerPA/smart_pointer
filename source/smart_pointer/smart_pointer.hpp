@@ -6,7 +6,6 @@
 using namespace std;
 
 /*
- *
  * Smart Pointer que implementa un tipo de estrategia por conteo de referencias.
  * Permite que varios SmartPointers puedan acceder al mismo recurso compartido.
  * Cuando el ˙ltimo puntero es eliminado, se elimina y libera el recurso.
